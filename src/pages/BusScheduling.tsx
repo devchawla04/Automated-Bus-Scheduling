@@ -50,7 +50,7 @@ export const BusScheduling: React.FC = () => {
                 <td>{bus.driver}</td>
                 <td>{bus.conductor}</td>
                 <td>
-                  <button className="btn btn-sm">Edit</button>
+                  <button className="btn btn-sm btn-info">Edit</button>
                   <button className="btn btn-sm btn-danger">Remove</button>
                 </td>
               </tr>
