@@ -2,9 +2,21 @@
   padding: 20px;
 }
 
-.dashboard h1 {
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
   color: #2c3e50;
+}
+
+.refreshing {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .stats-grid {
@@ -20,6 +32,11 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   text-align: center;
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
 }
 
 .stat-card h3 {
@@ -32,10 +49,15 @@
 }
 
 .stat-number {
-  margin: 0;
+  margin: 0 0 8px 0;
   font-size: 2.5rem;
   font-weight: bold;
   color: #2c3e50;
+}
+
+.stat-trend {
+  font-size: 0.875rem;
+  color: #7f8c8d;
 }
 
 .recent-activities {
@@ -45,8 +67,15 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.recent-activities h2 {
-  margin: 0 0 20px 0;
+.activities-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.activities-header h2 {
+  margin: 0;
   color: #2c3e50;
   font-size: 1.25rem;
 }
@@ -60,15 +89,49 @@
 .activity-item {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid #ecf0f1;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 4px solid #ecf0f1;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s;
 }
 
-.activity-item:last-child {
-  border-bottom: none;
+.activity-item:hover {
+  background-color: #e9ecef;
+}
+
+.activity-item.activity-success {
+  border-left-color: #28a745;
+}
+
+.activity-item.activity-warning {
+  border-left-color: #ffc107;
+}
+
+.activity-item.activity-info {
+  border-left-color: #17a2b8;
+}
+
+.activity-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activity-message {
+  font-weight: 500;
+}
+
+.activity-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #6c757d;
+  font-weight: 600;
 }
 
 .time {
   color: #7f8c8d;
   font-size: 0.875rem;
+  white-space: nowrap;
 }
