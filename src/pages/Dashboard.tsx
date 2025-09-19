@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Map from '../components/Map'
 import './Dashboard.css'
 
 interface DashboardStats {
@@ -28,6 +29,14 @@ export const Dashboard: React.FC = () => {
     { id: '2', message: 'Crew duty schedule updated for Route 23', time: '4 hours ago', type: 'info' },
     { id: '3', message: 'New route optimization completed', time: '6 hours ago', type: 'success' },
     { id: '4', message: 'Bus DL-1PC-5678 requires maintenance check', time: '8 hours ago', type: 'warning' },
+  ])
+
+  // Sample live bus data for dashboard map
+  const [liveBuses] = useState([
+    { id: 'bus-1', busNumber: 'DL-1PC-1234', route: 'Route 45', latitude: 28.6315, longitude: 77.2167, status: 'active' as const, speed: 25 },
+    { id: 'bus-2', busNumber: 'DL-1PC-5678', route: 'Route 67', latitude: 28.6280, longitude: 77.2419, status: 'active' as const, speed: 30 },
+    { id: 'bus-3', busNumber: 'DL-1PC-9012', route: 'Route 23', latitude: 28.5921, longitude: 77.0460, status: 'idle' as const, speed: 0 },
+    { id: 'bus-4', busNumber: 'DL-1PC-3456', route: 'Route 45', latitude: 28.6562, longitude: 77.2410, status: 'active' as const, speed: 20 },
   ])
 
   const [refreshing, setRefreshing] = useState(false)
@@ -107,27 +116,61 @@ export const Dashboard: React.FC = () => {
           <span className="stat-trend">On duty personnel</span>
         </div>
       </div>
-      
-      <div className="recent-activities">
-        <div className="activities-header">
-          <h2>Recent Activities</h2>
-          <button 
-            className="btn btn-sm btn-primary"
-            onClick={() => addActivity('Manual activity added', 'success')}
-          >
-            Add Test Activity
-          </button>
-        </div>
-        <div className="activity-list">
-          {activities.map((activity) => (
-            <div key={activity.id} className={`activity-item activity-${activity.type}`}>
-              <div className="activity-content">
-                <span className="activity-message">{activity.message}</span>
-                <span className="activity-type">{activity.type}</span>
-              </div>
-              <span className="time">{activity.time}</span>
+
+      <div className="dashboard-content">
+        <div className="live-tracking">
+          <h2>Live Bus Tracking</h2>
+          <div className="map-container-dashboard">
+            <Map
+              center={[28.6139, 77.2090]}
+              zoom={12}
+              busLocations={liveBuses}
+              showBuses={true}
+              showRoutes={false}
+              showStops={false}
+              height="350px"
+              className="dashboard-map"
+            />
+          </div>
+          <div className="tracking-summary">
+            <div className="tracking-stat">
+              <span className="stat-label">Buses Tracked:</span>
+              <span className="stat-value">{liveBuses.length}</span>
             </div>
-          ))}
+            <div className="tracking-stat">
+              <span className="stat-label">Active:</span>
+              <span className="stat-value">{liveBuses.filter(b => b.status === 'active').length}</span>
+            </div>
+            <div className="tracking-stat">
+              <span className="stat-label">Avg Speed:</span>
+              <span className="stat-value">
+                {Math.round(liveBuses.filter(b => b.speed > 0).reduce((sum, b) => sum + b.speed, 0) / liveBuses.filter(b => b.speed > 0).length) || 0} km/h
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="recent-activities">
+          <div className="activities-header">
+            <h2>Recent Activities</h2>
+            <button 
+              className="btn btn-sm btn-primary"
+              onClick={() => addActivity('Manual activity added', 'success')}
+            >
+              Add Test Activity
+            </button>
+          </div>
+          <div className="activity-list">
+            {activities.map((activity) => (
+              <div key={activity.id} className={`activity-item activity-${activity.type}`}>
+                <div className="activity-content">
+                  <span className="activity-message">{activity.message}</span>
+                  <span className="activity-type">{activity.type}</span>
+                </div>
+                <span className="time">{activity.time}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

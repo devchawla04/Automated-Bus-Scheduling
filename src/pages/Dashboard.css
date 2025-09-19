@@ -60,6 +60,61 @@
   color: #7f8c8d;
 }
 
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.live-tracking {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.live-tracking h2 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
+
+.map-container-dashboard {
+  margin-bottom: 15px;
+}
+
+.dashboard-map {
+  border-radius: 6px;
+}
+
+.tracking-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.tracking-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
 .recent-activities {
   background: white;
   padding: 24px;
@@ -134,4 +189,21 @@
   color: #7f8c8d;
   font-size: 0.875rem;
   white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .tracking-summary {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .tracking-stat {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
